@@ -14,3 +14,5 @@ pratica javascript formularios html5
 - minlength (atributo para definir o mínimo de caracteres no campo de senha);
 - atributo pattern regex (https://www.regexlib.com/) usar um padrão esperado para senha;
 - mensagem customizada de erro no balão do navegador;
+- type date;
+- validação de maior idade javascript input.setCustomValidity('Mensagem customizada de erro');
