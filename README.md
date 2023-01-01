@@ -17,3 +17,4 @@ pratica javascript formularios html5
 - type date;
 - validação de maior idade javascript input.setCustomValidity('Mensagem customizada de erro');
 - input-container--invalido;
+- JS: replace(/\D/g, '') regex;
