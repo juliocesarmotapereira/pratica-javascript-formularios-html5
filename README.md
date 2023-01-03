@@ -22,3 +22,4 @@ pratica javascript formularios html5
 - validar cpf com números repetidos, matemática por trás da validação de um CPF;
 - pattern [colchete para dizer que queremos o espectro \d barra invertidas apenas dígitos]{5 caracteres} -? hífen opcional;
 - JS: função fech;
+- JS: API do ViaCEP;

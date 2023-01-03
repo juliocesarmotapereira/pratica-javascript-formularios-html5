@@ -25,47 +25,46 @@ export function valida(input) {
 
 // vetor de strings
 const tiposDeErro = [
-    "customError",
-    "patterMismatch",
-    "typeMismatch",
-    "valueMissing",
+    'valueMissing',
+    'typeMismatch',
+    'patternMismatch',
+    'customError'
 ]
 
-const mensagemDeErro = {
-
+const mensagensDeErro = {
     nome: {
-        valueMissing: "O campo nome não pode estar vazio."
+        valueMissing: 'O campo de nome não pode estar vazio.'
     },
     email: {
-        typeMismatch: "O emai digitado não é válido.",
-        valueMissing: "O campo de e-mail não pode estar vazio."
+        typeMismatch: 'O email digitado não é válido.',
+        valueMissing: 'O campo de email não pode estar vazio.'
     },
     senha: {
-        patterMismatch: "A senha deve conter somente letras minusculas.",
-        valueMissing: "O campo da senha não pode estar vazio."
+        patternMismatch: 'A senha deve conter entre 6 a 12 caracteres, deve conter pelo menos uma letra maiúscula, um número e não deve conter símbolos.',
+        valueMissing: 'O campo de senha não pode estar vazio.'
     },
     dataNascimento: {
-        customError: "Você deve ser maior que 18 anos para se cadastrar.",
-        valueMissing: "O campo data de nascimento não pode estar vazio."
+        customError: 'Você deve ser maior que 18 anos para se cadastrar.',
+        valueMissing: 'O campo de data de nascimento não pode estar vazio.'
     },
     cpf: {
-        customError: 'O CPF digitado não é válido.',
-        valueMissing: 'O campo de CPF não pode estar vazio.'
+        valueMissing: 'O campo de CPF não pode estar vazio.',
+        customError: 'O CPF digitado não é válido.'
     },
     cep: {
-        patterMismatch: 'O CEP digitado não é válido.',
-        valueMissing: 'O CEP digitado não pode estar vazio.'
+        customError: 'Não foi possível buscar o CEP.',
+        patternMismatch: 'O CEP digitado não é válido.',
+        valueMissing: 'O campo de CEP não pode estar vazio.'
     },
     logradouro: {
-        valueMissing: 'O campo logradouro não pode estar vazio.'
+        valueMissing: 'O campo de logradouro não pode estar vazio.'
     },
     cidade: {
-        valueMissing: 'O campo cidade não pode estar vazio.'
+        valueMissing: 'O campo de cidade não pode estar vazio.'
     },
     estado: {
-        valueMissing: 'O campo estado não pode estar vazio'
-    },
-
+        valueMissing: 'O campo de estado não pode estar vazio.'
+    }
 }
 
 const validadores = {
@@ -77,10 +76,10 @@ const validadores = {
 // FUNÇÃO MOSTRA MENSAGEM DE ERRO 
 
 function mostraMensagemDeErro(tipoDeInput, input) {
-    let mensagem = "";
+    let mensagem = ""
     tiposDeErro.forEach(erro => {
-        if(input.validity[erro]) {
-            mensagem = mensagemDeErro[tipoDeInput][erro];
+        if (input.validity[erro]) {
+            mensagem = mensagensDeErro[tipoDeInput][erro];
         }
     })
 
@@ -113,14 +112,14 @@ function maiorQue18(data) {
 // VALIDANDO CPF
 
 function validaCPF(input) {
-    const  cpfFormatado = input.value.replace(/\D/g, ''); 
-    let mensagem = '';
+    const cpfFormatado = input.value.replace(/\D/g, '')
+    let mensagem = ''
 
-    if(!checaCPFRepetido(cpfFormatado) || !checaEstruturaCPF(cpfFormatado)) {
+    if (!checaCPFRepetido(cpfFormatado) || !checaEstruturaCPF(cpfFormatado)) {
         mensagem = 'O CPF digitado não é válido.'
     }
 
-    input.setCustomValidity(mensagem);
+    input.setCustomValidity(mensagem)
 }
 
 function checaCPFRepetido(cpf) {
@@ -140,12 +139,12 @@ function checaCPFRepetido(cpf) {
     let cpfValido = true;
 
     valoresRepetidos.forEach(valor => {
-        if(valor == cpf) {
-            cpfValido = false;
+        if (valor == cpf) {
+            cpfValido = false
         }
     })
 
-    return cpfValido;
+    return cpfValido
 }
 
 
@@ -160,23 +159,23 @@ function checaEstruturaCPF(cpf) {
 // FUNÇÃO QUE VALIDA O PRIMEIO DÍGITO VERIFICADOR 
 
 function checaDigitoVerificador(cpf, multiplicador) {
-    
-    if(multiplicador >= 12) {
+
+    if (multiplicador >= 12) {
         return true;
     }
 
     let multiplicadorInicial = multiplicador;
     let soma = 0;
 
-    const cpfSemDigitos = cpf.substr(0, multiplicador -1).split('');
+    const cpfSemDigitos = cpf.substr(0, multiplicador - 1).split('');
     const digitoVerificador = cpf.charAt(multiplicador - 1);
 
-    for(let contador = 0; multiplicador > 1; multiplicador--) {
+    for (let contador = 0; multiplicador > 1; multiplicador--) {
         soma = soma + cpfSemDigitos[contador] * multiplicadorInicial
         contador++;
     }
 
-    if(digitoVerificador == confirmaDigito(soma)) {
+    if (digitoVerificador == confirmaDigito(soma)) {
         return checaDigitoVerificador(cpf, multiplicador + 1)
     }
 
@@ -189,6 +188,12 @@ function confirmaDigito(soma) {
 }
 
 function recuperarCEP(input) {
+    /* 
+    method: 'GET' é o tipo de requisição que será feita.
+    mode: 'cors' indica que a comunicação será feita entre aplicações diferentes.
+    headers: {'content-type': 'application/json;charset=utf-8'} diz como que queremos receber as informações da API.
+    */
+
     const cep = input.value.replace(/\D/g, '');
     const url = `https://viacep.com.br/ws/${cep}/json/`;
     const options = {
@@ -199,13 +204,30 @@ function recuperarCEP(input) {
         }
     }
 
-    if(!input.validity.patterMismatch && !input.validity.valueMissing) {
+
+    if (!input.validity.patternMismatch && !input.validity.valueMissing) {
         fetch(url, options).then(
             response => response.json()
         ).then(
             data => {
-                console.log(data)
+                if (data.erro) {
+                    input.setCustomValidity('Não foi possível buscar o CEP.')
+                    return
+                }
+                input.setCustomValidity('')
+                preencheCamposComCEP(data)
+                return;
             }
         )
     }
+}
+
+function preencheCamposComCEP(data) {
+    const logradouro = document.querySelector('[data-tipo="logradouro"]');
+    const cidade = document.querySelector('[data-tipo="cidade"]');
+    const estado = document.querySelector('[data-tipo="estado"]');
+
+    logradouro.value = data.logradouro;
+    cidade.value = data.localidade;
+    estado.value = data.uf;
 }

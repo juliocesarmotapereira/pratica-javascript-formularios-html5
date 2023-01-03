@@ -42,12 +42,12 @@
                         <span class="input-mensagem-erro">Este campo não está válido</span>
                     </div>
 
+                    <!-- atributos de senhas -->
                     <div class="input-container">
-                        <!-- atributos de senhas -->
                         <input name="senha" id="senha" class="input" type="password" placeholder="Senha"
-                            pattern="^(?=.*[a-z])(?!.*[A-Z]).{3,5}$"
-                            title="A senha deve conter somente letras minusculas." data-tipo="senha" required>
-
+                            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?!.*[ !@#$%^&*_=+-]).{6,12}$"
+                            title="A senha deve conter entre 6 a 12 caracteres, deve conter pelo menos uma letra maiúscula, um número e não deve conter símbolos."
+                            data-tipo="senha" required>
                         <label class="input-label" for="senha">Senha</label>
                         <span class="input-mensagem-erro">Este campo não está válido</span>
                     </div>
@@ -65,22 +65,39 @@
 
                     <!-- VALIDANDO CPF -->
                     <div class="input-container">
-                        <input name="cpf" id="cpf" class="input" type="text" placeholder="CPF">
+                        <input name="cpf" id="cpf" class="input" type="text" placeholder="CPF" data-tipo="cpf"
+                            required />
                         <label class="input-label" for="cpf">CPF</label>
                         <span class="input-mensagem-erro">Este campo não está válido</span>
-                    </div>
+                    </div> 
+
+                    <!-- <div class="input-container">
+                        <input name="cpf" id="cpf" class="input" type="text" placeholder="CPF" data-tipo="cpf" required>
+                        <label class="input-label" for="cpf">CPF</label>
+                        <span class="input-mensagem-erro">Este campo não está válido</span>
+                    </div> -->
+                    
                 </fieldset>
 
                 <fieldset>
                     <legend class="formulario__legenda">Endereço</legend>
 
                     <!-- VALIDANDO CEP -->
+                    
                     <div class="input-container">
                         <input name="cep" id="cep" class="input" type="text" placeholder="CEP"
                             pattern="[\d]{5}-?[\d]{3}" data-tipo="cep" required />
                         <label class="input-label" for="cep">CEP</label>
                         <span class="input-mensagem-erro">Este campo não está válido</span>
                     </div>
+
+                    <!-- <div class="input-container">
+                        <input name="cep" id="cep" class="input" type="text" placeholder="CEP"
+                            pattern="[\d]{5}-?[\d]{3}" data-tipo="cep" required>
+                        <label class="input-label" for="cep">CEP</label>
+                        <span class="input-mensagem-erro">Este campo não está válido</span>
+                    </div> -->
+
 
                     <!-- VALIDANDO LOGRADOURO -->
                     <div class="input-container">
@@ -92,8 +109,8 @@
 
                     <!-- VALIDANDO CIDADE -->
                     <div class="input-container">
-                        <input name="cidade" id="cidade" class="input" type="text" placeholder="Cidade" 
-                        data-tipo="cidade" required />
+                        <input name="cidade" id="cidade" class="input" type="text" placeholder="Cidade"
+                            data-tipo="cidade" required />
                         <label class="input-label" for="cidade">Cidade</label>
                         <span class="input-mensagem-erro">Este campo não está válido</span>
                     </div>
@@ -101,12 +118,12 @@
                     <!-- VALIDANDO ESTADO -->
                     <div class="input-container">
                         <input name="estado" id="estado" class="input" type="text" placeholder="Estado"
-                        data-tipo="estado" required />
+                            data-tipo="estado" required />
                         <label class="input-label" for="estado">Estado</label>
                         <span class="input-mensagem-erro">Este campo não está válido</span>
                     </div>
                 </fieldset>
-                
+
                 <button class="botao">Cadastrar</a>
             </form>
         </section>
