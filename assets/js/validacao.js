@@ -51,14 +51,27 @@ const mensagemDeErro = {
     cpf: {
         customError: 'O CPF digitado não é válido.',
         valueMissing: 'O campo de CPF não pode estar vazio.'
-    }
+    },
+    cep: {
+        patterMismatch: 'O CEP digitado não é válido.',
+        valueMissing: 'O CEP digitado não pode estar vazio.'
+    },
+    logradouro: {
+        valueMissing: 'O campo logradouro não pode estar vazio.'
+    },
+    cidade: {
+        valueMissing: 'O campo cidade não pode estar vazio.'
+    },
+    estado: {
+        valueMissing: 'O campo estado não pode estar vazio'
+    },
 
 }
 
 const validadores = {
-    dataNascimento: input => validaDataNascimento(input)
-
-    cpf: input => validaCPF(input)
+    dataNascimento: input => validaDataNascimento(input),
+    cpf: input => validaCPF(input),
+    cep: input => recuperarCEP(input)
 }
 
 // FUNÇÃO MOSTRA MENSAGEM DE ERRO 
@@ -143,6 +156,9 @@ function checaEstruturaCPF(cpf) {
     return checaDigitoVerificador(cpf, multiplicador);
 }
 
+
+// FUNÇÃO QUE VALIDA O PRIMEIO DÍGITO VERIFICADOR 
+
 function checaDigitoVerificador(cpf, multiplicador) {
     
     if(multiplicador >= 12) {
@@ -172,11 +188,24 @@ function confirmaDigito(soma) {
     return 11 - (soma % 11);
 }
 
+function recuperarCEP(input) {
+    const cep = input.value.replace(/\D/g, '');
+    const url = `https://viacep.com.br/ws/${cep}/json/`;
+    const options = {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+            'content-type': 'application/json;charset=utf-8'
+        }
+    }
 
-// CALCULO MATEMÁTICO VALIDAÇÃO DA API (EX: RECEITA FEDERAL)
-
-// 123 456 798 09
-
-// let soma = (11 * 1 ) + (10 * 2) + (9 * 3) ... (2 * 0);
-
-// let digitoVerificador = 11 - (soma % 11);
+    if(!input.validity.patterMismatch && !input.validity.valueMissing) {
+        fetch(url, options).then(
+            response => response.json()
+        ).then(
+            data => {
+                console.log(data)
+            }
+        )
+    }
+}

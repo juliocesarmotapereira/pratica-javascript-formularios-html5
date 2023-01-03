@@ -18,3 +18,7 @@ pratica javascript formularios html5
 - validação de maior idade javascript input.setCustomValidity('Mensagem customizada de erro');
 - input-container--invalido;
 - JS: replace(/\D/g, '') regex;
+- verificar a integridade da estrutura desse CPF através de uma fórmula matemática;
+- validar cpf com números repetidos, matemática por trás da validação de um CPF;
+- pattern [colchete para dizer que queremos o espectro \d barra invertidas apenas dígitos]{5 caracteres} -? hífen opcional;
+- JS: função fech;
