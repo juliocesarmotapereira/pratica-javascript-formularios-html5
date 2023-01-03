@@ -23,3 +23,4 @@ pratica javascript formularios html5
 - pattern [colchete para dizer que queremos o espectro \d barra invertidas apenas dígitos]{5 caracteres} -? hífen opcional;
 - JS: função fech;
 - JS: API do ViaCEP;
+- JS: como adicionar a máscara monetária (https://github.com/codermarcos/simple-mask-money).
